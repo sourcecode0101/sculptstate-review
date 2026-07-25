@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sculpt State — Content Automation Plan · leonmanuel.co</title>
+<style>
+  :root{--black:#0a0a0b;--ink:#131316;--panel:#17171b;--panel2:#1d1e22;
+    --silver:#c9ccd1;--chrome:#eef0f2;--slate:#3a3f47;--grey:#868c95;--line:rgba(255,255,255,.09);
+    --green:#7fd1a6;--amber:#e5c07b;--red:#e08c8c;--blue:#8fb7e8}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--black);color:var(--chrome);font-family:'Helvetica Neue',Arial,sans-serif;line-height:1.55}
+  h1,h2,h3,.up{font-family:'Arial Narrow',Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 26px}
+  .chrome{background:linear-gradient(180deg,#fff,#c9ccd1 50%,#71767d 60%,#eef0f2);-webkit-background-clip:text;background-clip:text;color:transparent}
+  section{padding:60px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:11px;letter-spacing:.24em;color:var(--grey);font-weight:700;margin-bottom:14px}
+  h2{font-size:clamp(28px,4.4vw,46px);font-weight:800;line-height:1;margin-bottom:18px}
+  p{color:var(--silver);max-width:720px}
+  .lead{font-size:17px}
+  .cover{padding:88px 0 66px;background:radial-gradient(70% 90% at 75% 10%,rgba(130,138,148,.18),transparent 60%)}
+  .logo{font-weight:800;letter-spacing:.28em;font-size:15px;margin-bottom:34px}
+  .logo span{color:var(--grey)}
+  .cover h1{font-size:clamp(40px,7vw,88px);font-weight:800;line-height:.95}
+  .cover .sub{margin-top:22px;font-size:18px;max-width:640px}
+  .pill{display:inline-block;border:1px solid var(--slate);color:var(--silver);font-size:11px;
+    letter-spacing:.16em;padding:7px 13px;border-radius:20px;margin-top:26px;font-weight:700}
+
+  .verdict{background:linear-gradient(180deg,#16181c,#0d0d0f);border:1px solid var(--slate);
+    padding:34px;margin-top:8px;position:relative;overflow:hidden}
+  .verdict::before{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;
+    background:radial-gradient(circle,rgba(127,209,166,.16),transparent 70%)}
+  .verdict .tag{font-size:12px;letter-spacing:.2em;color:var(--green);font-weight:700}
+  .verdict h3{font-size:30px;margin:10px 0 12px;font-weight:800}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+  .col{border:1px solid var(--line);background:var(--panel);padding:26px 22px;position:relative}
+  .col.best{border-color:var(--green);background:linear-gradient(180deg,#15211b,#141417)}
+  .col .badge{position:absolute;top:-11px;left:22px;background:var(--green);color:#0a0a0b;
+    font-size:10px;letter-spacing:.12em;font-weight:800;padding:4px 10px}
+  .col h3{font-size:21px;font-weight:800}
+  .col .price{font-size:13px;color:var(--grey);margin:4px 0 16px;letter-spacing:.04em}
+  .col ul{list-style:none;display:grid;gap:9px}
+  .col li{font-size:13.5px;color:var(--silver);padding-left:20px;position:relative}
+  .col li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;border:1px solid var(--slate)}
+  .col li.y::before{background:var(--green);border-color:var(--green)}
+  .col li.n::before{background:var(--red);border-color:var(--red)}
+  .col li.m::before{background:var(--amber);border-color:var(--amber)}
+
+  /* MOCKUP DASHBOARD */
+  .app{border:1px solid var(--line);background:var(--ink);border-radius:8px;overflow:hidden;margin-top:34px}
+  .app-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .app-bar .u{margin-left:14px;font-size:12px;color:var(--grey);letter-spacing:.12em}
+  .app-body{display:grid;grid-template-columns:180px 1fr;min-height:420px}
+  .side{border-right:1px solid var(--line);padding:18px 14px;background:rgba(0,0,0,.2)}
+  .side .brand{font-weight:800;letter-spacing:.2em;font-size:13px;margin-bottom:22px}
+  .side a{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--silver);padding:9px 10px;border-radius:5px;margin-bottom:3px}
+  .side a.on{background:var(--panel2);color:#fff}
+  .main{padding:22px}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .tile{border:1px solid var(--line);padding:14px;background:var(--panel)}
+  .tile b{font-size:26px;font-weight:800;display:block}
+  .tile span{font-size:10.5px;letter-spacing:.12em;color:var(--grey)}
+  .tile .up-g{color:var(--green);font-size:11px}
+  .cal{border:1px solid var(--line);background:var(--panel)}
+  .cal-h{display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid var(--line)}
+  .cal-h div{padding:9px;font-size:10.5px;letter-spacing:.1em;color:var(--grey);text-align:center;font-weight:700}
+  .cal-b{display:grid;grid-template-columns:repeat(7,1fr)}
+  .cal-b>div{min-height:74px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px;font-size:10px;color:var(--grey)}
+  .ev{margin-top:5px;font-size:9.5px;padding:4px 5px;border-radius:3px;color:#0a0a0b;font-weight:700;letter-spacing:.02em}
+  .ev.ig{background:#e5b8d0}.ev.tt{background:#bfc6cf}.ev.yt{background:#e5a8a8}.ev.li{background:#a9c6ea}
+  .cap{font-size:11px;color:var(--grey);margin-top:10px;letter-spacing:.06em}
+
+  /* PROCESS MAP */
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:34px}
+  .step{border:1px solid var(--line);background:var(--panel);padding:22px 16px;position:relative}
+  .step .n{font-size:11px;color:var(--grey);letter-spacing:.16em;font-weight:700}
+  .step h4{font-size:16px;font-weight:800;margin:9px 0 8px;text-transform:uppercase}
+  .step p{font-size:12.5px;color:var(--silver)}
+  .step .who{margin-top:12px;font-size:10px;letter-spacing:.1em;padding:4px 8px;display:inline-block;border:1px solid var(--slate);color:var(--grey)}
+  .step .who.ai{color:var(--green);border-color:var(--green)}
+  .step .who.k{color:var(--blue);border-color:var(--blue)}
+  .step::after{content:"→";position:absolute;right:-11px;top:50%;transform:translateY(-50%);
+    z-index:2;color:var(--slate);font-size:18px;background:var(--black);padding:2px}
+  .step:last-child::after{display:none}
+
+  table{width:100%;border-collapse:collapse;margin-top:30px;font-size:13.5px}
+  th,td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;letter-spacing:.14em;color:var(--grey);text-transform:uppercase}
+  td b{color:var(--chrome)}
+  .rec{color:var(--green);font-weight:700}
+
+  .scores{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+  .score{border:1px solid var(--line);background:var(--panel);padding:22px}
+  .score h4{font-size:14px;letter-spacing:.1em;margin-bottom:14px;color:var(--silver)}
+  .bar{display:flex;align-items:center;gap:12px;margin-bottom:11px}
+  .bar span{font-size:12px;width:130px;color:var(--grey)}
+  .track{flex:1;height:8px;background:var(--panel2);border:1px solid var(--line)}
+  .fill{height:100%;background:linear-gradient(90deg,#71767d,#eef0f2)}
+
+  .hours{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+  .hcard{border:1px solid var(--line);background:var(--panel);padding:24px;text-align:center}
+  .hcard b{font-size:40px;font-weight:800;display:block}
+  .hcard span{font-size:11px;letter-spacing:.12em;color:var(--grey)}
+
+  .map-list{display:grid;gap:14px;margin-top:30px}
+  .maprow{display:grid;grid-template-columns:210px 1fr;gap:20px;border:1px solid var(--line);
+    background:var(--panel);padding:20px 22px;align-items:center}
+  .maprow .svc{font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.04em;color:var(--chrome)}
+  .maprow .svc small{display:block;color:var(--grey);font-size:11px;letter-spacing:.1em;margin-top:4px;font-weight:400}
+  .maprow p{font-size:13.5px}
+  .phase{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+  .ph{flex:1;min-width:200px;border:1px solid var(--line);background:var(--panel);padding:20px}
+  .ph .t{font-size:11px;letter-spacing:.16em;color:var(--grey);font-weight:700}
+  .ph h4{font-size:18px;margin:8px 0;font-weight:800}
+  .ph p{font-size:13px}
+  footer{padding:40px 0;color:var(--grey);font-size:12px;text-align:center}
+  .note{font-size:11px;color:var(--grey);margin-top:16px}
+  @media(max-width:860px){
+    .grid3,.flow,.hours{grid-template-columns:1fr}
+    .tiles{grid-template-columns:1fr 1fr}
+    .app-body{grid-template-columns:1fr}.side{display:none}
+    .scores,.phase{grid-template-columns:1fr}
+    .maprow{grid-template-columns:1fr;gap:8px}
+    .step::after{content:"↓";right:auto;left:50%;top:auto;bottom:-11px;transform:translateX(-50%)}
+    .cal-b>div{min-height:56px}
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="wrap">
+    <div class="logo">LEON<span>MANUEL.CO</span></div>
+    <div class="eyebrow">CONTENT AUTOMATION · PREPARED FOR SCULPT STATE</div>
+    <h1 class="chrome">Stop planning.<br>Start publishing.</h1>
+    <p class="sub">A content engine that turns your ideas into scheduled, on-brand posts across every platform — so you save hours a week instead of hiring a social manager.</p>
+    <div class="pill">BUILD vs BUY · MOCKUP · PROCESS MAP · PRICING · ROI</div>
+  </div>
+</div>
+
+<!-- PROBLEM + VERDICT -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">THE BRIEF, IN YOUR WORDS</div>
+    <h2>The bottleneck isn't editing.<br>It's deciding what to post.</h2>
+    <p class="lead">You told us the creative idea process takes longer than making the content — planning what to do and when eats the hours. The goal: build brand awareness without it becoming a full-time job or a new hire.</p>
+
+    <div class="verdict">
+      <div class="tag">OUR RECOMMENDATION</div>
+      <h3>Buy the platform. Build the pipeline.</h3>
+      <p>At your stage, a custom-built app is overkill — expensive to build, yours to maintain, and slow (Meta/YouTube API approvals can take a month+). The smart play is a proven platform (<b>Blotato</b>) that already does AI content + scheduling + analytics, with Leon building the <b>AI idea-to-post pipeline</b> around it. You get a custom system on rented rails — live in weeks, not months.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD VS BUY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">OPTION COMPARISON</div>
+    <h2>Three ways to run it.</h2>
+    <div class="grid3">
+      <div class="col">
+        <h3>Do it manually</h3>
+        <div class="price">Status quo · your time</div>
+        <ul>
+          <li class="n">Hours lost every week</li>
+          <li class="n">Inconsistent posting</li>
+          <li class="m">Zero tooling cost</li>
+          <li class="n">Doesn't scale with the brand</li>
+          <li class="n">Burnout / eventual hire</li>
+        </ul>
+      </div>
+      <div class="col best">
+        <div class="badge">RECOMMENDED</div>
+        <h3>Platform + AI pipeline</h3>
+        <div class="price">Blotato · from $29/mo + setup</div>
+        <ul>
+          <li class="y">AI drafts ideas &amp; captions</li>
+          <li class="y">Schedules to 9 platforms</li>
+          <li class="y">Built-in analytics</li>
+          <li class="y">Live in 2–3 weeks</li>
+          <li class="m">Monthly subscription</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Custom / self-hosted</h3>
+        <div class="price">Postiz + n8n · build cost + server</div>
+        <ul>
+          <li class="y">Fully owned, no per-seat fees</li>
+          <li class="n">Weeks of build time</li>
+          <li class="n">You apply for each social API</li>
+          <li class="n">You maintain the server</li>
+          <li class="m">Best only at scale / agency</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Verdict: manual costs you the most (time); custom costs the most up front and to maintain. The platform route is the fastest path to hours saved — revisit self-hosting only if Sculpt State grows into multi-brand or franchise content.</p>
+  </div>
+</section>
+
+<!-- MOCKUP -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">WHAT YOU'D SEE</div>
+    <h2>Your content command centre.</h2>
+    <p class="lead">One dashboard: plan the month, approve AI-drafted posts, and watch what's working — all in a few clicks.</p>
+    <div class="app">
+      <div class="app-bar">
+        <span class="dot" style="background:#e08c8c"></span>
+        <span class="dot" style="background:#e5c07b"></span>
+        <span class="dot" style="background:#7fd1a6"></span>
+        <span class="u">app.sculptstate.com/studio</span>
+      </div>
+      <div class="app-body">
+        <div class="side">
+          <div class="brand chrome">SCULPT<span style="color:var(--grey)">STATE</span></div>
+          <a class="on">▦ &nbsp;Dashboard</a>
+          <a>✎ &nbsp;Create</a>
+          <a>▤ &nbsp;Calendar</a>
+          <a>◷ &nbsp;Queue</a>
+          <a>▧ &nbsp;Analytics</a>
+          <a>⚙ &nbsp;Settings</a>
+        </div>
+        <div class="main">
+          <div class="tiles">
+            <div class="tile"><b class="chrome">18</b><span>SCHEDULED</span></div>
+            <div class="tile"><b class="chrome">4</b><span>NEED APPROVAL</span></div>
+            <div class="tile"><b class="chrome">+31%<span class="up-g"></span></b><span>REACH / 30D</span></div>
+            <div class="tile"><b class="chrome">6.2h</b><span>SAVED / WK</span></div>
+          </div>
+          <div class="cal">
+            <div class="cal-h"><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div></div>
+            <div class="cal-b">
+              <div>14<div class="ev ig">IG Reel · 6pm</div></div>
+              <div>15<div class="ev tt">TikTok · 12pm</div></div>
+              <div>16<div class="ev yt">Short · 5pm</div></div>
+              <div>17<div class="ev ig">Carousel · 7pm</div></div>
+              <div>18<div class="ev li">LinkedIn · 9am</div></div>
+              <div>19<div class="ev tt">DJ recap · 8pm</div></div>
+              <div>20</div>
+              <div>21<div class="ev ig">IG Reel · 6pm</div></div>
+              <div>22<div class="ev yt">Short · 5pm</div></div>
+              <div>23<div class="ev tt">TikTok · 12pm</div></div>
+              <div>24<div class="ev ig">Story set · 7pm</div></div>
+              <div>25<div class="ev li">LinkedIn · 9am</div></div>
+              <div>26<div class="ev tt">Class clip · 8pm</div></div>
+              <div>27</div>
+            </div>
+          </div>
+          <p class="cap">Illustrative mockup · colours = platform. AI fills the queue, you approve with a tap.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS MAP -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">HOW IT WORKS</div>
+    <h2>Idea to published — on autopilot.</h2>
+    <div class="flow">
+      <div class="step"><div class="n">01</div><h4>Capture</h4><p>Film a class or drop a rough idea. One clip or one line is enough.</p><span class="who k">YOU · 2 MIN</span></div>
+      <div class="step"><div class="n">02</div><h4>AI Draft</h4><p>AI writes captions, hooks and hashtags in Sculpt State's gritty voice, per platform.</p><span class="who ai">AI · AUTO</span></div>
+      <div class="step"><div class="n">03</div><h4>Approve</h4><p>Review the week's queue in one sitting. Tap to approve, edit or swap.</p><span class="who k">YOU · 15 MIN/WK</span></div>
+      <div class="step"><div class="n">04</div><h4>Publish</h4><p>Auto-posts to IG, TikTok, YouTube, LinkedIn at the best times.</p><span class="who ai">AI · AUTO</span></div>
+      <div class="step"><div class="n">05</div><h4>Learn</h4><p>Analytics show what converts; AI leans into the winners next week.</p><span class="who ai">AI · AUTO</span></div>
+    </div>
+    <p class="note">Your hands-on time collapses to ~15 minutes a week of approvals. Everything else runs in the background.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">THE NUMBERS</div>
+    <h2>What it actually costs.</h2>
+    <table>
+      <thead><tr><th>Option</th><th>Monthly</th><th>Setup</th><th>Best for</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td><b>Blotato — Starter</b><br><small style="color:var(--grey)">9 platforms · up to 20 accounts · AI + API</small></td><td>$29</td><td>Leon (one-off)</td><td>Solo founder, launching</td><td class="rec">Start here ✓</td></tr>
+        <tr><td><b>Blotato — Creator</b></td><td>$97</td><td>Leon (one-off)</td><td>Higher volume + more AI credits</td><td>Upgrade later</td></tr>
+        <tr><td><b>Postiz (self-hosted)</b><br><small style="color:var(--grey)">open-source · you own it</small></td><td>~$10–20 server</td><td>Higher (build + API approvals)</td><td>Scale / multi-brand</td><td>Later phase</td></tr>
+        <tr><td><b>Custom app (from scratch)</b></td><td>Server + upkeep</td><td>Highest</td><td>Franchise / product play</td><td>Not yet</td></tr>
+        <tr><td><b>Hiring a social manager</b></td><td>$1,500–4,000+</td><td>Recruiting time</td><td>Once volume is huge</td><td>Avoids for now</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Blotato has no free forever plan but offers a 7-day trial and 14-day refund. Annual billing saves ~17%. Prices as researched, July 2026 — confirm live before sign-up.</p>
+  </div>
+</section>
+
+<!-- SCORES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">EASE + POTENTIAL</div>
+    <h2>Why the platform wins right now.</h2>
+    <div class="scores">
+      <div class="score">
+        <h4>EASE OF USE</h4>
+        <div class="bar"><span>Blotato + pipeline</span><div class="track"><div class="fill" style="width:92%"></div></div></div>
+        <div class="bar"><span>Self-hosted Postiz</span><div class="track"><div class="fill" style="width:55%"></div></div></div>
+        <div class="bar"><span>Custom build</span><div class="track"><div class="fill" style="width:40%"></div></div></div>
+        <div class="bar"><span>Manual</span><div class="track"><div class="fill" style="width:30%"></div></div></div>
+      </div>
+      <div class="score">
+        <h4>AUTOMATION POTENTIAL</h4>
+        <div class="bar"><span>Blotato + pipeline</span><div class="track"><div class="fill" style="width:88%"></div></div></div>
+        <div class="bar"><span>Self-hosted Postiz</span><div class="track"><div class="fill" style="width:90%"></div></div></div>
+        <div class="bar"><span>Custom build</span><div class="track"><div class="fill" style="width:95%"></div></div></div>
+        <div class="bar"><span>Manual</span><div class="track"><div class="fill" style="width:12%"></div></div></div>
+      </div>
+    </div>
+    <p class="note">Custom builds can automate a touch more — but only Blotato gives near-max automation with near-zero setup friction. That gap isn't worth months of build time today.</p>
+  </div>
+</section>
+
+<!-- HOURS SAVED -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">THE PAYOFF</div>
+    <h2>Hours back in your week.</h2>
+    <div class="hours">
+      <div class="hcard"><b class="chrome">~6h</b><span>SAVED PER WEEK</span></div>
+      <div class="hcard"><b class="chrome">~26h</b><span>SAVED PER MONTH</span></div>
+      <div class="hcard"><b class="chrome">$0 hire</b><span>NO SOCIAL MANAGER YET</span></div>
+    </div>
+    <p class="note">Estimate based on collapsing planning + scheduling + posting from ~7h/wk of manual work down to ~1h/wk of approvals. Your figures, we refine on the discovery call.</p>
+  </div>
+</section>
+
+<!-- SERVICE MAPPING -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">MAPPED TO LEONMANUEL.CO</div>
+    <h2>The deliverable for your brief.</h2>
+    <div class="map-list">
+      <div class="maprow">
+        <div class="svc">Website / Digital Presence<small>PHASE 1</small></div>
+        <p>The 4-page Sculpt State site (Home, About, Classes, Contact) in the gritty chrome-and-black identity — the mock you're viewing alongside this.</p>
+      </div>
+      <div class="maprow">
+        <div class="svc">Systems Consulting<small>PHASE 1–2</small></div>
+        <p>Choose and configure the content stack (Blotato), map your posting cadence, and define the idea-to-post workflow so it fits how you actually work.</p>
+      </div>
+      <div class="maprow">
+        <div class="svc">AI Workflow Automation<small>PHASE 2</small></div>
+        <p>Build the AI pipeline: idea capture → on-brand drafts → approval queue → auto-publish → analytics loop. This is what saves the hours.</p>
+      </div>
+      <div class="maprow">
+        <div class="svc">AI Agent / Chatbot<small>OPTIONAL LATER</small></div>
+        <p>A booking/FAQ assistant on the site to convert social traffic into booked classes — natural phase-3 add-on once traffic grows.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="ph"><div class="t">PHASE 1 · WEEKS 1–4</div><h4>Brand online</h4><p>Website live on your domain + content stack chosen and connected.</p></div>
+      <div class="ph"><div class="t">PHASE 2 · WEEKS 3–5</div><h4>Engine on</h4><p>AI content pipeline built, first month scheduled, you trained on approvals.</p></div>
+      <div class="ph"><div class="t">PHASE 3 · LATER</div><h4>Scale</h4><p>Booking assistant, deeper automation, or self-hosted move if volume demands.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Prepared by leonmanuel.co for Sculpt State · Project LM-10 · July 2026 · Figures researched July 2026, confirm before purchase.
+</footer>
+
+</body>
+</html>

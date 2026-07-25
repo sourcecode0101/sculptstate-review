@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SCULPT STATE — Editorial · Hybrid Pilates × Strength</title>
+<style>
+  :root{
+    --concrete:#e7e5e0; --paper:#f2f1ec; --ink:#111112; --smoke:#5c5f63; --slate:#33383f;
+    --steel:#8b9096; --line:#c9c6bf; --hot:#111112;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--concrete);color:var(--ink);
+    font-family:'Helvetica Neue',Arial,sans-serif;line-height:1.5;overflow-x:hidden}
+  h1,h2,h3,.up{font-family:'Arial Narrow','Helvetica Neue',Arial,sans-serif;text-transform:uppercase;letter-spacing:-.01em}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+  a{color:inherit;text-decoration:none}
+  .btn{display:inline-block;padding:16px 30px;font-size:12px;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;background:var(--ink);color:var(--paper);border:1px solid var(--ink);transition:.2s}
+  .btn:hover{background:transparent;color:var(--ink)}
+  .btn.line{background:transparent;color:var(--ink)}
+  .btn.line:hover{background:var(--ink);color:var(--paper)}
+
+  header{position:fixed;inset:0 0 auto 0;z-index:50;background:var(--concrete);border-bottom:1px solid var(--ink)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;letter-spacing:.02em;font-size:22px}
+  .nav-links{display:flex;gap:0}
+  .nav-links a{font-size:12px;letter-spacing:.14em;font-weight:700;padding:0 20px;border-left:1px solid var(--line)}
+  .nav-links a:hover{background:var(--ink);color:var(--paper)}
+  .burger{display:none;font-size:24px;background:none;border:0;cursor:pointer}
+
+  /* HERO — editorial split */
+  .hero{padding:120px 0 0;border-bottom:2px solid var(--ink)}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
+    border-bottom:1px solid var(--ink);padding-bottom:14px;margin-bottom:8px}
+  .hero-top .meta{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--smoke)}
+  .mega{font-size:clamp(64px,17vw,240px);line-height:.82;font-weight:800;letter-spacing:-.02em}
+  .mega .thin{-webkit-text-stroke:2px var(--ink);color:transparent}
+  .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;border-top:1px solid var(--ink);margin-top:8px}
+  .hero-grid>div{padding:34px 0}
+  .hero-grid .r{border-left:1px solid var(--ink);padding-left:34px}
+  .hero-lead{font-size:20px;max-width:520px;color:var(--slate)}
+  .hero-actions{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap}
+  .imgblock{aspect-ratio:16/10;background:
+      repeating-linear-gradient(45deg,#d7d4cd 0 14px,#cfccc4 14px 28px);
+    border:1px solid var(--ink);display:grid;place-items:end start;padding:16px}
+  .imgblock span{font-size:11px;letter-spacing:.18em;font-weight:700;color:var(--slate)}
+
+  .ticker{border-bottom:1px solid var(--ink);overflow:hidden;background:var(--ink);color:var(--paper)}
+  .ticker-track{display:flex;gap:40px;white-space:nowrap;animation:tk 26s linear infinite;padding:11px 0;
+    font-size:13px;letter-spacing:.2em;font-weight:700}
+  @keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  section{padding:0}
+  .band{border-bottom:1px solid var(--ink);padding:80px 0}
+  .idx{display:flex;gap:24px;align-items:baseline}
+  .idx .num{font-size:14px;font-weight:800;letter-spacing:.1em;color:var(--smoke)}
+  .h-sec{font-size:clamp(40px,7vw,96px);line-height:.9;font-weight:800;letter-spacing:-.02em}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:40px}
+  .two p{font-size:17px;color:var(--slate);max-width:520px}
+  .facts{margin-top:20px;border-top:1px solid var(--ink)}
+  .fact{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);font-size:14px;letter-spacing:.04em}
+  .fact b{font-weight:800}
+
+  /* CLASSES editorial list */
+  .rows{margin-top:20px;border-top:2px solid var(--ink)}
+  .row{display:grid;grid-template-columns:80px 1fr 1fr 160px;gap:20px;align-items:center;
+    padding:30px 0;border-bottom:1px solid var(--ink);transition:.2s}
+  .row:hover{background:var(--ink);color:var(--paper);padding-left:16px;padding-right:16px}
+  .row .rn{font-size:22px;font-weight:800}
+  .row h3{font-size:38px;font-weight:800;letter-spacing:-.01em}
+  .row p{font-size:14px;color:var(--slate)}
+  .row:hover p{color:var(--steel)}
+  .row .rt{font-size:12px;letter-spacing:.14em;font-weight:700;text-align:right}
+
+  .cta-band{background:var(--ink);color:var(--paper);padding:100px 0;text-align:center}
+  .cta-band h2{font-size:clamp(44px,9vw,120px);line-height:.85;font-weight:800;letter-spacing:-.02em}
+  .cta-band p{max-width:520px;margin:24px auto 32px;color:var(--steel);font-size:17px}
+  .btn.inv{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .btn.inv:hover{background:transparent;color:var(--paper)}
+
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--ink)}
+  .contact>div{padding:50px 0}
+  .contact .r{border-left:1px solid var(--ink);padding-left:50px}
+  form{display:grid;gap:0;border:1px solid var(--ink)}
+  form input,form textarea{border:0;border-bottom:1px solid var(--ink);background:transparent;
+    padding:16px;font-family:inherit;font-size:15px;color:var(--ink)}
+  form textarea{border-bottom:0}
+  form input:focus,form textarea:focus{outline:none;background:#dedbd4}
+  .fbtn{border:0;cursor:pointer}
+  .info .fact:first-child{border-top:1px solid var(--ink)}
+  .socials{display:flex;gap:0;margin-top:24px;border:1px solid var(--ink);width:max-content}
+  .socials a{padding:14px 20px;font-size:12px;font-weight:700;letter-spacing:.1em;border-right:1px solid var(--ink)}
+  .socials a:last-child{border-right:0}
+  .socials a:hover{background:var(--ink);color:var(--paper)}
+
+  footer{border-top:2px solid var(--ink);padding:30px 0;display:flex;justify-content:space-between;
+    font-size:12px;letter-spacing:.06em;font-weight:700;flex-wrap:wrap;gap:10px}
+  .demo{position:fixed;bottom:14px;right:14px;z-index:99;background:var(--ink);color:var(--paper);
+    font-size:11px;letter-spacing:.1em;padding:8px 12px}
+  @media(max-width:860px){
+    .nav-links{display:none}.burger{display:block}
+    .hero-grid,.two,.contact{grid-template-columns:1fr}
+    .hero-grid .r,.contact .r{border-left:0;padding-left:0;border-top:1px solid var(--ink)}
+    .row{grid-template-columns:50px 1fr;gap:10px}.row .rt{display:none}.row p{display:none}
+    .row h3{font-size:28px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">SCULPT&nbsp;STATE</div>
+    <div class="nav-links">
+      <a href="#home">Home</a><a href="#about">About</a><a href="#classes">Classes</a><a href="#contact">Contact</a>
+    </div>
+    <button class="burger" onclick="var n=document.querySelector('.nav-links');n.style.display=n.style.display==='flex'?'none':'flex'">≡</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="meta">HYBRID PILATES × STRENGTH</div>
+      <div class="meta">EST. 2026 — WORLDWIDE</div>
+    </div>
+    <div class="mega">SCULPT<br><span class="thin">STATE</span></div>
+    <div class="hero-grid">
+      <div>
+        <div class="hero-lead">A new discipline. Pilates precision welded to raw strength, delivered at full volume with a DJ in the room.</div>
+        <div class="hero-actions">
+          <a href="#contact" class="btn">Book a class</a>
+          <a href="#classes" class="btn line">The formats</a>
+        </div>
+      </div>
+      <div class="r">
+        <div class="imgblock"><span>HERO FILM — DROP VIDEO HERE</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>STRENGTH + FLOW</span><span>/</span><span>LIVE DJ SETS</span><span>/</span><span>HYBRID METHOD</span><span>/</span><span>NO FILLER</span><span>/</span>
+    <span>STRENGTH + FLOW</span><span>/</span><span>LIVE DJ SETS</span><span>/</span><span>HYBRID METHOD</span><span>/</span><span>NO FILLER</span><span>/</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="band" id="about">
+  <div class="wrap">
+    <div class="idx"><span class="num">01 — ABOUT</span></div>
+    <h2 class="h-sec">Rewriting<br>the standard.</h2>
+    <div class="two">
+      <p>Sculpt State fuses pilates and strength training into one hybrid method — then builds the content to teach it to instructors, clients and a global audience. This isn't a softer workout. It's a harder, smarter one.</p>
+      <div>
+        <p>Gritty, industrial, exact. Chrome and concrete over pastels. The energy of an LA warehouse session with the discipline of a reformer studio.</p>
+        <div class="facts">
+          <div class="fact"><span>SESSION LENGTH</span><b>40–50 MIN</b></div>
+          <div class="fact"><span>METHOD</span><b>PILATES + STRENGTH</b></div>
+          <div class="fact"><span>SOUNDTRACK</span><b>LIVE / DJ</b></div>
+          <div class="fact"><span>LEVEL</span><b>ALL WELCOME</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section class="band" id="classes">
+  <div class="wrap">
+    <div class="idx"><span class="num">02 — CLASSES</span></div>
+    <h2 class="h-sec">Pick your<br>intensity.</h2>
+    <div class="rows">
+      <div class="row"><div class="rn">01</div><h3>Sculpt Hybrid</h3><p>Reformer-style pilates loaded with strength work. Controlled and brutal.</p><div class="rt">50 MIN<br>ALL LEVELS</div></div>
+      <div class="row"><div class="rn">02</div><h3>DJ Sculpt Live</h3><p>Live DJ, low lights, full tempo. Our loudest room.</p><div class="rt">45 MIN<br>INTERMEDIATE+</div></div>
+      <div class="row"><div class="rn">03</div><h3>State Strength</h3><p>Strength foundations for the hybrid method. Build the base.</p><div class="rt">40 MIN<br>BEGINNER</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <div class="wrap">
+    <h2>JOIN THE<br>STATE.</h2>
+    <p>First class is on us. Follow the movement, book your spot, feel the difference.</p>
+    <a href="#contact" class="btn inv">Claim first class</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="band" id="contact" style="border-bottom:0">
+  <div class="wrap">
+    <div class="idx"><span class="num">03 — CONTACT</span></div>
+    <h2 class="h-sec">Book. Follow.<br>Sculpt.</h2>
+    <div class="contact">
+      <div>
+        <form onsubmit="event.preventDefault();this.querySelector('.done').style.display='block'">
+          <input required placeholder="NAME"/>
+          <input required type="email" placeholder="EMAIL"/>
+          <input placeholder="WHICH CLASS?"/>
+          <textarea rows="4" placeholder="MESSAGE"></textarea>
+          <button class="btn fbtn" type="submit">SEND &amp; BOOK</button>
+        </form>
+        <p class="done" style="display:none;margin-top:14px;font-size:13px;color:var(--smoke)">Demo form — we'll connect it to your booking system on the live build.</p>
+      </div>
+      <div class="r info">
+        <div class="facts">
+          <div class="fact"><span>EMAIL</span><b>HELLO@SCULPTSTATE.COM</b></div>
+          <div class="fact"><span>STUDIO</span><b>LOCATION TBC</b></div>
+          <div class="fact"><span>HOURS</span><b>MON–SAT · 6–20:00</b></div>
+          <div class="fact"><span>PRIMARY</span><b>FOLLOW &amp; BOOK</b></div>
+        </div>
+        <div class="socials"><a href="#">INSTAGRAM</a><a href="#">TIKTOK</a><a href="#">YOUTUBE</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>SCULPT STATE — EDITORIAL DIRECTION</span>
+  <span>© 2026 · CONCEPT MOCK BY LEONMANUEL.CO</span>
+</footer>
+<div class="demo">CONCEPT MOCK · V2 EDITORIAL</div>
+
+</body>
+</html>
